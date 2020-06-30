@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<input type="text" id="uname"><br>
+	<input id="upwd" type="text"><br>
+	<button onclick="show()">登录</button>
+</body>
+<script type="text/javascript">
+	function show(){
+		var $uname =uname.value
+		var $upwd=upwd.value
+		const xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=()=>{
+			if(xhr.readyState==4 && xhr.status==200){
+				var r =xhr.responseText;
+				if(r==1){
+					alert("登陆成功")
+				}else{
+					alert("登录失败")
+				}
+			}
+		}
+		xhr.open('get',`/pro/restful_login/${$uname}&${$upwd}`,true)
+		xhr.send()
+	}
+</script>
+</html>

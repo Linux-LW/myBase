@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>用户登录</title>
+</head>
+<body>
+	<input type="text" id="uname"><br>
+	<input type="password" id="upwd"><br>
+	<button onclick="login()">登录</button>
+
+</body>
+	<script type="text/javascript">
+		function login(){
+			var $uname=uname.value
+			var $upwd=upwd.value
+			var xhr =new XMLHttpRequest();
+			xhr.onreadystatechange=()=>{
+				if(xhr.readyState==4 && xhr.status==200){
+					var r =xhr.responseText;
+					console.log(r)
+					if(r==1){
+
+						alert("登陆成功")
+						return
+					}
+					if(r==0) {
+						alert("登陆失败")
+						return
+					}
+				}
+			}
+			xhr.open('get',`/pro/v1/login?uname=${$uname}&upwd=${$upwd}`,true)
+			xhr.send()
+		}
+	</script>
+</html>

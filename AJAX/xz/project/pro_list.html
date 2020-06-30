@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>用户列表</title>
+</head>
+<body onload="show()">
+	<div id="d1"></div>
+</body>
+<script type="text/javascript">
+function show(){
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=()=>{
+		if(xhr.readyState==4 && xhr.status==200){
+			var r =xhr.responseText;
+			var arr =JSON.parse(r);
+			var tab=`
+			<table border='1' cellspacing='0' cellspadding='0'>
+			<tr>
+				<th>编号</th>
+				<th>昵称</th>
+				<th>密码</th>
+				<th>邮箱</th>
+				<th>电话</th>
+				<th>头像</th>
+				<th>真姓</th>
+				<th>性别</th>
+				<th>操作</th>
+			</tr>
+			`
+			for(var i=0;i<arr.length;i++){
+				tab+=`<tr>`
+				if(arr[i].gender==1){
+					arr[i].gender="男"
+				}else if(arr[i].gender==0){
+					arr[i].gender="女"
+				}else{
+					arr[i].gender="保密"
+				}
+				for(var key in arr[i]){
+					tab+=`<td>${arr[i][key]}</td>`
+				}
+				tab+=`<td><a href='#'>删除 修改</a>`
+				tab+=`</tr>`
+			}
+			tab+=`</table>`
+			d1.innerHTML=tab
+		}
+	}
+		xhr.open('get',`/pro/v1/list`,true)
+		xhr.send();
+}
+</script>
+</html>
